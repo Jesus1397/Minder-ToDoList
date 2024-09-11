@@ -4,7 +4,7 @@ import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import { Add as AddIcon } from "@mui/icons-material";
-import { CssBaseline, Fab } from "@mui/material";
+import { Box, Container, CssBaseline, Fab, Typography } from "@mui/material";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import TaskList from "./components/TaskList_component";
@@ -68,24 +68,52 @@ function App() {
     <>
       <CssBaseline />
       <ThemeProvider theme={theme}>
-        <TaskList tasks={tasks} onToggle={handleToggleTask} completed={false} />
-        <TaskList tasks={tasks} onToggle={handleToggleTask} completed={true} />
-        <Fab
-          color="primary"
-          aria-label="add"
-          onClick={() => setOpen(true)}
-          sx={{ position: "fixed", bottom: 16, right: 16 }}
+        <Container
+          maxWidth="md"
+          sx={{
+            border: "2px solid black",
+            borderRadius: "8px",
+            padding: "64px 24px 40px 24px",
+            height: "100%",
+          }}
         >
-          <AddIcon />
-        </Fab>
-        <TaskModal
-          open={open}
-          handleClose={() => setOpen(false)}
-          newTask={newTask}
-          handleInputChange={handleInputChange}
-          categories={categories}
-          handleCreateTask={handleCreateTask}
-        />
+          <Box
+            sx={{
+              padding: "10px",
+              border: "2px solid black",
+              borderRadius: "8px",
+              height: "100%",
+            }}
+          >
+            <Typography variant="h3">Lista de tareas</Typography>
+            <TaskList
+              tasks={tasks}
+              onToggle={handleToggleTask}
+              completed={false}
+            />
+            <TaskList
+              tasks={tasks}
+              onToggle={handleToggleTask}
+              completed={true}
+            />
+            <Fab
+              color="primary"
+              aria-label="add"
+              onClick={() => setOpen(true)}
+              sx={{ position: "fixed", bottom: 16, right: 16 }}
+            >
+              <AddIcon />
+            </Fab>
+            <TaskModal
+              open={open}
+              handleClose={() => setOpen(false)}
+              newTask={newTask}
+              handleInputChange={handleInputChange}
+              categories={categories}
+              handleCreateTask={handleCreateTask}
+            />
+          </Box>
+        </Container>
       </ThemeProvider>
     </>
   );

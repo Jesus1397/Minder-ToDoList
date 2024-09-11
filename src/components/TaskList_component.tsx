@@ -22,7 +22,15 @@ const TaskList: React.FC<TaskListProps> = ({ tasks, onToggle, completed }) => (
       {tasks
         .filter((task) => task.completed === completed)
         .map((task) => (
-          <ListItem key={task.id}>
+          <ListItem
+            key={task.id}
+            sx={{
+              boxShadow: "0px 0px 8px rgba(0, 0, 0, 0.2)",
+              margin: "16px 0",
+              borderRadius: "4px",
+              backgroundColor: "#fff",
+            }}
+          >
             <Checkbox
               checked={task.completed}
               onChange={() => onToggle(task.id, task.completed)}
