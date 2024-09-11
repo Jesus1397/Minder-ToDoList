@@ -49,21 +49,21 @@
       "title": "Crear app para hacerme millonario 🤑",
       "description": null,
       "category_id": "65125b62-8778-5bc8-89ac-098057b9a390",
-      "completed": false
+      "completed": true
     },
     {
       "id": "cbdb75a0-5808-556b-8f6c-fbe2c162752b",
       "title": "Festejar el año 2065",
       "description": "Armar una gran fiesta para el año 2065 🥳💃🎉🎊",
       "category_id": "49078200-32bd-5718-a6e5-5c4e08c0ed9c",
-      "completed": false
+      "completed": true
     },
     {
       "id": "1dea00ea-dd83-5338-b5d7-0b5177c8545e",
       "title": "Terminar la carrera universitaria",
       "description": "Materias aprobadas 46/46",
       "category_id": "24c202cd-6076-58aa-a2e2-3bc3f7d99428",
-      "completed": false
+      "completed": true
     }
   ]
 }

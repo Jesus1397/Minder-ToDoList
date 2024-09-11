@@ -15,10 +15,20 @@ interface TaskListProps {
 
 const TaskList: React.FC<TaskListProps> = ({ tasks, onToggle, completed }) => (
   <>
-    <Typography variant="h6" gutterBottom>
+    <Typography
+      variant="h6"
+      sx={{
+        marginBottom: "8px",
+      }}
+    >
       {completed ? "Terminadas" : "Pendientes"}
     </Typography>
-    <List>
+    <List
+      sx={{
+        paddingTop: "0px",
+        paddingBottom: "16px",
+      }}
+    >
       {tasks
         .filter((task) => task.completed === completed)
         .map((task) => (
@@ -26,14 +36,18 @@ const TaskList: React.FC<TaskListProps> = ({ tasks, onToggle, completed }) => (
             key={task.id}
             sx={{
               boxShadow: "0px 0px 8px rgba(0, 0, 0, 0.2)",
-              margin: "16px 0",
+              margin: "0 0 16px 0",
               borderRadius: "4px",
               backgroundColor: "#fff",
+              padding: "10px",
             }}
           >
             <Checkbox
               checked={task.completed}
               onChange={() => onToggle(task.id, task.completed)}
+              sx={{
+                marginRight: "10px",
+              }}
             />
             <ListItemText
               primary={task.title}

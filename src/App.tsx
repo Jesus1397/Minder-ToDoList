@@ -71,21 +71,25 @@ function App() {
         <Container
           maxWidth="md"
           sx={{
-            border: "2px solid black",
-            borderRadius: "8px",
             padding: "64px 24px 40px 24px",
             height: "100%",
+            position: "relative",
           }}
         >
           <Box
             sx={{
               padding: "10px",
-              border: "2px solid black",
-              borderRadius: "8px",
               height: "100%",
             }}
           >
-            <Typography variant="h3">Lista de tareas</Typography>
+            <Typography
+              variant="h3"
+              sx={{
+                marginBottom: "28px",
+              }}
+            >
+              Lista de tareas
+            </Typography>
             <TaskList
               tasks={tasks}
               onToggle={handleToggleTask}
@@ -100,7 +104,7 @@ function App() {
               color="primary"
               aria-label="add"
               onClick={() => setOpen(true)}
-              sx={{ position: "fixed", bottom: 16, right: 16 }}
+              sx={{ position: "absolute", bottom: 16, right: 16 }}
             >
               <AddIcon />
             </Fab>
