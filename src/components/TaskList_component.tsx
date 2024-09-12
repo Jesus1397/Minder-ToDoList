@@ -7,15 +7,27 @@ import {
   Box,
 } from "@mui/material";
 import { Task } from "../interfaces/Task_interfaces";
+import { Category } from "../interfaces/Category_interface";
 
 interface TaskListProps {
   tasks: Task[];
+  categories: Category[];
   onToggle: (id: string, completed: boolean) => void;
   completed: boolean;
 }
 
-const TaskList: React.FC<TaskListProps> = ({ tasks, onToggle, completed }) => {
+const TaskList: React.FC<TaskListProps> = ({
+  tasks,
+  categories,
+  onToggle,
+  completed,
+}) => {
   const filteredTasks = tasks.filter((task) => task.completed === completed);
+
+  const getCategoryColor = (categoryId: string) => {
+    const category = categories.find((cat) => cat.id === categoryId);
+    return category?.color || "#ffffff";
+  };
 
   return (
     <>
@@ -55,7 +67,7 @@ const TaskList: React.FC<TaskListProps> = ({ tasks, onToggle, completed }) => {
                 boxShadow: "0px 0px 8px rgba(0, 0, 0, 0.2)",
                 margin: "0 0 16px 0",
                 borderRadius: "4px",
-                backgroundColor: "#fff",
+                backgroundColor: getCategoryColor(task.category_id),
                 padding: "10px",
               }}
             >

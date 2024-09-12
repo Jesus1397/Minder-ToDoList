@@ -43,7 +43,7 @@ const TaskModal: React.FC<TaskModalProps> = ({
   };
 
   const handleModalClose = () => {
-    handleClose(); // This calls handleCloseModal in App component
+    handleClose(); 
   };
 
   return (

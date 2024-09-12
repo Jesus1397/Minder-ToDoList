@@ -100,11 +100,13 @@ function App() {
             </Typography>
             <TaskList
               tasks={tasks}
+              categories={categories}
               onToggle={handleToggleTask}
               completed={false}
             />
             <TaskList
               tasks={tasks}
+              categories={categories}
               onToggle={handleToggleTask}
               completed={true}
             />
@@ -122,7 +124,7 @@ function App() {
             </Fab>
             <TaskModal
               open={open}
-              handleClose={() => setOpen(false)}
+              handleClose={handleCloseModal}
               newTask={newTask}
               handleInputChange={handleInputChange}
               categories={categories}
