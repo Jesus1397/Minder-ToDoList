@@ -6,4 +6,6 @@ export interface TaskListProps {
   categories: Category[];
   onToggle: (id: string, completed: boolean) => void;
   completed: boolean;
+  onEdit?: (id: string) => void;
+  onDelete: (id: string) => void;
 }

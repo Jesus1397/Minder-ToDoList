@@ -9,4 +9,5 @@ export interface TaskModalProps {
   ) => void;
   categories: Category[];
   handleCreateTask: () => void;
+  isEditing?: boolean;
 }

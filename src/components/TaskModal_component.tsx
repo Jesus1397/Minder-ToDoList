@@ -17,6 +17,7 @@ const TaskModal: React.FC<TaskModalProps> = ({
   handleInputChange,
   categories,
   handleCreateTask,
+  isEditing = false,
 }) => {
   const [errors, setErrors] = useState({
     title: false,
@@ -43,7 +44,7 @@ const TaskModal: React.FC<TaskModalProps> = ({
   };
 
   const handleModalClose = () => {
-    handleClose(); 
+    handleClose();
   };
 
   return (
@@ -54,7 +55,7 @@ const TaskModal: React.FC<TaskModalProps> = ({
           gutterBottom
           sx={{ p: "24px 24px 16px 24px", m: "0px" }}
         >
-          Nueva tarea
+          {isEditing ? "Editando tarea" : "Nueva tarea"}{" "}
         </Typography>
         <Box sx={{ padding: "0 24px 20px 24px" }}>
           <Box sx={{ padding: "10px" }}>
@@ -126,7 +127,7 @@ const TaskModal: React.FC<TaskModalProps> = ({
             onClick={handleCreate}
             sx={{ ml: 2 }}
           >
-            Crear
+            {isEditing ? "Guardar cambios" : "Crear"}
           </Button>
         </Box>
       </Box>

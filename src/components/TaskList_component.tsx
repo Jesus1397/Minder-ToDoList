@@ -5,7 +5,9 @@ import {
   ListItemText,
   Typography,
   Box,
+  IconButton,
 } from "@mui/material";
+import { Edit, Delete } from "@mui/icons-material";
 import { TaskListProps } from "../interfaces/TaskListProps_interface";
 
 const TaskList: React.FC<TaskListProps> = ({
@@ -13,6 +15,8 @@ const TaskList: React.FC<TaskListProps> = ({
   categories,
   onToggle,
   completed,
+  onEdit,
+  onDelete,
 }) => {
   const filteredTasks = tasks.filter((task) => task.completed === completed);
 
@@ -61,19 +65,42 @@ const TaskList: React.FC<TaskListProps> = ({
                 borderRadius: "4px",
                 backgroundColor: getCategoryColor(task.category_id),
                 padding: "10px",
+                display: "flex",
+                justifyContent: "space-between",
               }}
             >
-              <Checkbox
-                checked={task.completed}
-                onChange={() => onToggle(task.id, task.completed)}
-                sx={{
-                  marginRight: "10px",
-                }}
-              />
-              <ListItemText
-                primary={task.title}
-                secondary={task.description ? task.description : null}
-              />
+              <Box sx={{ display: "flex", alignItems: "center" }}>
+                <Checkbox
+                  checked={task.completed}
+                  onChange={() => onToggle(task.id, task.completed)}
+                  sx={{
+                    marginRight: "10px",
+                  }}
+                />
+                <ListItemText
+                  primary={task.title}
+                  secondary={task.description ? task.description : null}
+                />
+              </Box>
+              <Box>
+                {onEdit && (
+                  <IconButton
+                    aria-label="edit"
+                    onClick={() => onEdit(task.id)}
+                    sx={{ marginRight: "8px" }}
+                  >
+                    <Edit />
+                  </IconButton>
+                )}
+                {onDelete && (
+                  <IconButton
+                    aria-label="delete"
+                    onClick={() => onDelete(task.id)}
+                  >
+                    <Delete />
+                  </IconButton>
+                )}
+              </Box>
             </ListItem>
           ))}
         </List>

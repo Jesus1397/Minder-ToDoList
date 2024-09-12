@@ -24,6 +24,7 @@ function App() {
     description: "",
     category_id: "",
   });
+  const [taskToEdit, setTaskToEdit] = useState<Task | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -61,16 +62,57 @@ function App() {
     }
   };
 
-  const handleCloseModal = () => {
-    setNewTask({ title: "", description: "", category_id: "" });
-    setOpen(false);
+  const handleEditTask = async (id: string) => {
+    const task = tasks.find((task) => task.id === id);
+    if (task) {
+      setTaskToEdit(task);
+      setOpen(true);
+    }
+  };
+
+  const handleUpdateTask = async () => {
+    if (taskToEdit) {
+      await axios.put(
+        `http://localhost:3000/tasks/${taskToEdit.id}`,
+        taskToEdit
+      );
+      const updatedTasks = tasks.map((task) =>
+        task.id === taskToEdit.id ? taskToEdit : task
+      );
+      setTasks(updatedTasks);
+      setTaskToEdit(null);
+      setOpen(false);
+    }
+  };
+
+  const handleDeleteTask = async (id: string) => {
+    await axios.delete(`http://localhost:3000/tasks/${id}`);
+    const updatedTasks = tasks.filter((task) => task.id !== id);
+    setTasks(updatedTasks);
   };
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
-    setNewTask((prev) => ({ ...prev, [name]: value }));
+
+    if (taskToEdit) {
+      setTaskToEdit((prev) => ({
+        ...prev!,
+        [name]: value,
+      }));
+    } else {
+      setNewTask((prev) => ({
+        ...prev,
+        [name]: value,
+      }));
+    }
+  };
+
+  const handleCloseModal = () => {
+    setNewTask({ title: "", description: "", category_id: "" });
+    setTaskToEdit(null);
+    setOpen(false);
   };
 
   return (
@@ -104,12 +146,15 @@ function App() {
               categories={categories}
               onToggle={handleToggleTask}
               completed={false}
+              onEdit={handleEditTask}
+              onDelete={handleDeleteTask}
             />
             <TaskList
               tasks={tasks}
               categories={categories}
               onToggle={handleToggleTask}
               completed={true}
+              onDelete={handleDeleteTask}
             />
             <Fab
               color="primary"
@@ -126,10 +171,13 @@ function App() {
             <TaskModal
               open={open}
               handleClose={handleCloseModal}
-              newTask={newTask}
+              newTask={taskToEdit ? taskToEdit : newTask}
               handleInputChange={handleInputChange}
               categories={categories}
-              handleCreateTask={handleCreateTask}
+              handleCreateTask={
+                taskToEdit ? handleUpdateTask : handleCreateTask
+              }
+              isEditing={!!taskToEdit}
             />
           </Box>
         </Container>
