@@ -6,15 +6,7 @@ import {
   Typography,
   Box,
 } from "@mui/material";
-import { Task } from "../interfaces/Task_interfaces";
-import { Category } from "../interfaces/Category_interface";
-
-interface TaskListProps {
-  tasks: Task[];
-  categories: Category[];
-  onToggle: (id: string, completed: boolean) => void;
-  completed: boolean;
-}
+import { TaskListProps } from "../interfaces/TaskListProps_interface";
 
 const TaskList: React.FC<TaskListProps> = ({
   tasks,

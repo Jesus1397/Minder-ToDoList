@@ -72,6 +72,7 @@ function App() {
     const { name, value } = e.target;
     setNewTask((prev) => ({ ...prev, [name]: value }));
   };
+
   return (
     <>
       <CssBaseline />
