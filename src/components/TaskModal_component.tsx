@@ -1,8 +1,8 @@
 import { Box, Button, Modal, Typography } from "@mui/material";
-import { modalStyle } from "../styles/Modal_style";
 import { useState } from "react";
 import { Category } from "../interfaces/Category_interface";
 import TaskModalForm from "./TaskModalForm_component";
+import { modalStyle } from "../styles/styles";
 
 interface TaskModalProps {
   open: boolean;

@@ -3,7 +3,7 @@ import axios from "axios";
 import { CATEGORIES_API } from "../constants/api_constants";
 import { Task } from "../interfaces/Task_interfaces";
 import { Category } from "../interfaces/Category_interface";
-import { fetchTasks, createTask } from "./TaskFuctions";
+import { fetchTasks, createTask } from "./TaskFunctions";
 
 export const useTasks = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -19,10 +19,14 @@ export const useTasks = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const tasksData = await fetchTasks();
-      const categoriesResponse = await axios.get<Category[]>(CATEGORIES_API);
-      setTasks(tasksData);
-      setCategories(categoriesResponse.data);
+      try {
+        const tasksData = await fetchTasks();
+        const categoriesResponse = await axios.get<Category[]>(CATEGORIES_API);
+        setTasks(tasksData);
+        setCategories(categoriesResponse.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
     };
     fetchData();
   }, []);
