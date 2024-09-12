@@ -1,5 +1,3 @@
-Task Management App
-
 # Task Management App
 
 ## Descripción
@@ -17,6 +15,7 @@ Aplicación de gestión de tareas que permite crear, editar, eliminar y gestiona
 ## Plus
 
 - **Edición y eliminación:** Las tareas pueden ser editadas o eliminadas.
+- **Mensajes informativos:** cuando no hay tareas en las listas de Pendientes y Terminadas, para que no se vean vacías.
 
 ## ¿Cómo ejecutar?
 
