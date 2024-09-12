@@ -1,14 +1,20 @@
-import {
-  Box,
-  Button,
-  Modal,
-  TextField,
-  Typography,
-  MenuItem,
-} from "@mui/material";
+import { Box, Button, Modal, Typography } from "@mui/material";
 import { modalStyle } from "../styles/Modal_style";
 import { useState } from "react";
-import { TaskModalProps } from "../interfaces/TaskModalProps_interface";
+import { Category } from "../interfaces/Category_interface";
+import TaskModalForm from "./TaskModalForm_component";
+
+interface TaskModalProps {
+  open: boolean;
+  handleClose: () => void;
+  newTask: { title: string; description?: string | null; category_id: string };
+  handleInputChange: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void;
+  categories: Category[];
+  handleCreateTask: () => void;
+  isEditing?: boolean;
+}
 
 const TaskModal: React.FC<TaskModalProps> = ({
   open,
@@ -25,6 +31,16 @@ const TaskModal: React.FC<TaskModalProps> = ({
     category_id: false,
   });
 
+  const handleCreate = () => {
+    if (validateInputs()) {
+      handleCreateTask();
+    }
+  };
+
+  const handleModalClose = () => {
+    handleClose();
+  };
+
   const validateInputs = () => {
     const hasErrors = {
       title: !newTask.title.trim() || newTask.title.length > 40,
@@ -37,16 +53,6 @@ const TaskModal: React.FC<TaskModalProps> = ({
     return !Object.values(hasErrors).includes(true);
   };
 
-  const handleCreate = () => {
-    if (validateInputs()) {
-      handleCreateTask();
-    }
-  };
-
-  const handleModalClose = () => {
-    handleClose();
-  };
-
   return (
     <Modal open={open} onClose={handleModalClose}>
       <Box sx={{ ...modalStyle }}>
@@ -55,66 +61,14 @@ const TaskModal: React.FC<TaskModalProps> = ({
           gutterBottom
           sx={{ p: "24px 24px 16px 24px", m: "0px" }}
         >
-          {isEditing ? "Editando tarea" : "Nueva tarea"}{" "}
+          {isEditing ? "Editando tarea" : "Nueva tarea"}
         </Typography>
-        <Box sx={{ padding: "0 24px 20px 24px" }}>
-          <Box sx={{ padding: "10px" }}>
-            <TextField
-              fullWidth
-              label="Título"
-              name="title"
-              value={newTask.title}
-              onChange={handleInputChange}
-              inputProps={{ maxLength: 40 }}
-              required
-              error={errors.title}
-              helperText={
-                errors.title
-                  ? "El título es obligatorio y no puede exceder 40 caracteres"
-                  : ""
-              }
-              variant="standard"
-              sx={{ marginBottom: "16px" }}
-            />
-            <TextField
-              fullWidth
-              label="Descripción"
-              name="description"
-              value={newTask.description}
-              onChange={handleInputChange}
-              inputProps={{ maxLength: 100 }}
-              error={errors.description}
-              helperText={
-                errors.description
-                  ? "La descripción no puede exceder 100 caracteres"
-                  : ""
-              }
-              variant="standard"
-              sx={{ marginBottom: "16px" }}
-            />
-            <TextField
-              fullWidth
-              select
-              label="Categoría"
-              name="category_id"
-              value={newTask.category_id}
-              onChange={handleInputChange}
-              required
-              error={errors.category_id}
-              helperText={
-                errors.category_id ? "La categoría es obligatoria" : ""
-              }
-              variant="standard"
-              sx={{ marginBottom: "16px" }}
-            >
-              {categories.map((category) => (
-                <MenuItem key={category.id} value={category.id}>
-                  {category.name}
-                </MenuItem>
-              ))}
-            </TextField>
-          </Box>
-        </Box>
+        <TaskModalForm
+          newTask={newTask}
+          handleInputChange={handleInputChange}
+          categories={categories}
+          errors={errors}
+        />
         <Box
           sx={{ display: "flex", justifyContent: "flex-end", padding: "8px" }}
         >

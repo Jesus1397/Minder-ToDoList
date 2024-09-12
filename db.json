@@ -39,10 +39,10 @@
   "tasks": [
     {
       "id": "664a90a5-22ed-588c-b113-b6373f5f4dd3",
-      "title": "Comprar 1kg de tomates",
+      "title": "Comprar 2kg de tomates",
       "description": "Bien maduros",
       "category_id": "46265b1f-ffba-5cd2-9d55-36ec7e3ac095",
-      "completed": true
+      "completed": false
     },
     {
       "id": "c77b2e4c-0992-55b4-ac93-a6dad915a754",
@@ -53,17 +53,22 @@
     },
     {
       "id": "cbdb75a0-5808-556b-8f6c-fbe2c162752b",
-      "title": "Festejar el año 2065",
-      "description": "Armar una gran fiesta para el año 2065 🥳💃🎉🎊",
+      "title": "Festejar el año 2064",
+      "description": "Armar una gran fiesta para el año 2064 🥳💃🎉🎊",
       "category_id": "49078200-32bd-5718-a6e5-5c4e08c0ed9c",
       "completed": false
     },
     {
-      "id": "1dea00ea-dd83-5338-b5d7-0b5177c8545e",
-      "title": "Terminar la carrera universitaria",
-      "description": "Materias aprobadas 46/46",
+      "title": "dsdsd",
+      "description": null,
       "category_id": "24c202cd-6076-58aa-a2e2-3bc3f7d99428",
-      "completed": true
+      "id": "9GDvNR7"
+    },
+    {
+      "title": "dsdsds",
+      "description": null,
+      "category_id": "46265b1f-ffba-5cd2-9d55-36ec7e3ac095",
+      "id": "HUn-lok"
     }
   ]
 }
