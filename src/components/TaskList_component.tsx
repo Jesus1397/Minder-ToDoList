@@ -68,7 +68,7 @@ const TaskList: React.FC<TaskListProps> = ({ tasks, onToggle, completed }) => {
               />
               <ListItemText
                 primary={task.title}
-                secondary={task.description || "Sin descripción"}
+                secondary={task.description ? task.description : null}
               />
             </ListItem>
           ))}

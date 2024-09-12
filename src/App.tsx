@@ -51,11 +51,19 @@ function App() {
 
   const handleCreateTask = async () => {
     if (newTask.title && newTask.category_id) {
-      const createdTask = await createTask(newTask);
+      const taskToCreate = {
+        ...newTask,
+        description: newTask.description?.trim() ? newTask.description : null,
+      };
+      const createdTask = await createTask(taskToCreate);
       setTasks([...tasks, createdTask]);
-      setNewTask({ title: "", description: "", category_id: "" });
-      setOpen(false);
+      handleCloseModal();
     }
+  };
+
+  const handleCloseModal = () => {
+    setNewTask({ title: "", description: "", category_id: "" });
+    setOpen(false);
   };
 
   const handleInputChange = (

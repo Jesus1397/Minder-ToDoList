@@ -6,20 +6,9 @@ import {
   Typography,
   MenuItem,
 } from "@mui/material";
-import { Category } from "../interfaces/Category_interface";
 import { modalStyle } from "../styles/Modal_style";
-import { useState, useEffect } from "react";
-
-interface TaskModalProps {
-  open: boolean;
-  handleClose: () => void;
-  newTask: { title: string; description: string; category_id: string };
-  handleInputChange: (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => void;
-  categories: Category[];
-  handleCreateTask: () => void;
-}
+import { useState } from "react";
+import { TaskModalProps } from "../interfaces/TaskModalProps_interface";
 
 const TaskModal: React.FC<TaskModalProps> = ({
   open,
@@ -37,8 +26,10 @@ const TaskModal: React.FC<TaskModalProps> = ({
 
   const validateInputs = () => {
     const hasErrors = {
-      title: !newTask.title.trim(),
-      description: !newTask.description.trim(),
+      title: !newTask.title.trim() || newTask.title.length > 40,
+      description: newTask.description
+        ? newTask.description.length > 100
+        : false,
       category_id: !newTask.category_id.trim(),
     };
     setErrors(hasErrors);
@@ -51,27 +42,12 @@ const TaskModal: React.FC<TaskModalProps> = ({
     }
   };
 
-  const resetValidation = () => {
-    setErrors({ title: false, description: false, category_id: false });
-  };
-
-  useEffect(() => {
-    if (!open) {
-      resetValidation();
-    }
-  }, [open]);
-
-  const getFieldColor = (field: keyof typeof errors) => {
-    if (errors[field]) {
-      return "error";
-    } else if (newTask[field].trim() !== "") {
-      return "success";
-    }
-    return "primary";
+  const handleModalClose = () => {
+    handleClose(); // This calls handleCloseModal in App component
   };
 
   return (
-    <Modal open={open} onClose={handleClose}>
+    <Modal open={open} onClose={handleModalClose}>
       <Box sx={{ ...modalStyle }}>
         <Typography
           variant="h6"
@@ -90,9 +66,12 @@ const TaskModal: React.FC<TaskModalProps> = ({
               onChange={handleInputChange}
               inputProps={{ maxLength: 40 }}
               required
-              color={getFieldColor("title")}
               error={errors.title}
-              helperText={errors.title ? "El título es requerido" : ""}
+              helperText={
+                errors.title
+                  ? "El título es obligatorio y no puede exceder 40 caracteres"
+                  : ""
+              }
               variant="standard"
               sx={{ marginBottom: "16px" }}
             />
@@ -103,10 +82,11 @@ const TaskModal: React.FC<TaskModalProps> = ({
               value={newTask.description}
               onChange={handleInputChange}
               inputProps={{ maxLength: 100 }}
-              color={getFieldColor("description")}
               error={errors.description}
               helperText={
-                errors.description ? "La descripción es requerida" : ""
+                errors.description
+                  ? "La descripción no puede exceder 100 caracteres"
+                  : ""
               }
               variant="standard"
               sx={{ marginBottom: "16px" }}
@@ -119,9 +99,10 @@ const TaskModal: React.FC<TaskModalProps> = ({
               value={newTask.category_id}
               onChange={handleInputChange}
               required
-              color={getFieldColor("category_id")}
               error={errors.category_id}
-              helperText={errors.category_id ? "La categoría es requerida" : ""}
+              helperText={
+                errors.category_id ? "La categoría es obligatoria" : ""
+              }
               variant="standard"
               sx={{ marginBottom: "16px" }}
             >
@@ -136,7 +117,7 @@ const TaskModal: React.FC<TaskModalProps> = ({
         <Box
           sx={{ display: "flex", justifyContent: "flex-end", padding: "8px" }}
         >
-          <Button variant="outlined" onClick={handleClose}>
+          <Button variant="outlined" onClick={handleModalClose}>
             Cancelar
           </Button>
           <Button
