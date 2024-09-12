@@ -131,6 +131,7 @@ function App() {
             sx={{
               padding: "10px",
               height: "100%",
+              overflow: "auto",
             }}
           >
             <Typography
@@ -161,7 +162,7 @@ function App() {
               aria-label="add"
               onClick={() => setOpen(true)}
               sx={{
-                position: "fixed",
+                position: "absolute",
                 bottom: 16,
                 right: 16,
               }}
