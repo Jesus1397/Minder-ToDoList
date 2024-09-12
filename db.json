@@ -42,7 +42,7 @@
       "title": "Comprar 2kg de tomates",
       "description": "Bien maduros",
       "category_id": "46265b1f-ffba-5cd2-9d55-36ec7e3ac095",
-      "completed": false
+      "completed": true
     },
     {
       "id": "c77b2e4c-0992-55b4-ac93-a6dad915a754",
@@ -59,16 +59,25 @@
       "completed": false
     },
     {
-      "title": "dsdsd",
-      "description": null,
+      "id": "b3f1a8a5-df1b-478b-95f4-3f06eddee24e",
+      "title": "Leer 5 capítulos de un libro",
+      "description": "Continuar con el libro de autoayuda",
       "category_id": "24c202cd-6076-58aa-a2e2-3bc3f7d99428",
-      "id": "9GDvNR7"
+      "completed": false
     },
     {
-      "title": "dsdsds",
+      "id": "f79c4ea2-b879-4cf7-bd7b-ec5d69fdf58c",
+      "title": "Ir al gimnasio",
+      "description": "Ejercitar piernas y espalda",
+      "category_id": "c135e963-95be-57c5-926c-fee29681b66d",
+      "completed": false
+    },
+    {
+      "id": "aad58b5b-367b-4584-9be2-4efb87baf4c9",
+      "title": "Llevar a los perros al parque",
       "description": null,
-      "category_id": "46265b1f-ffba-5cd2-9d55-36ec7e3ac095",
-      "id": "HUn-lok"
+      "category_id": "8c08c709-6f07-544f-8377-f630a5d0a67d",
+      "completed": true
     }
   ]
 }

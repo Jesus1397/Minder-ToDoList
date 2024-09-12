@@ -9,10 +9,11 @@ export const useTasks = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [open, setOpen] = useState(false);
-  const [newTask, setNewTask] = useState<Omit<Task, "id" | "completed">>({
+  const [newTask, setNewTask] = useState<Omit<Task, "id">>({
     title: "",
     description: "",
     category_id: "",
+    completed: false,
   });
   const [taskToEdit, setTaskToEdit] = useState<Task | null>(null);
 
@@ -89,7 +90,12 @@ export const useTasks = () => {
   };
 
   const handleCloseModal = () => {
-    setNewTask({ title: "", description: "", category_id: "" });
+    setNewTask({
+      title: "",
+      description: "",
+      category_id: "",
+      completed: false,
+    });
     setTaskToEdit(null);
     setOpen(false);
   };
