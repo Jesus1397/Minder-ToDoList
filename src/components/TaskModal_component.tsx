@@ -72,25 +72,29 @@ const TaskModal: React.FC<TaskModalProps> = ({
 
   return (
     <Modal open={open} onClose={handleClose}>
-      <Box sx={{ ...modalStyle, p: "24px 24px 16px 24px" }}>
-        <Typography variant="h6" gutterBottom>
+      <Box sx={{ ...modalStyle }}>
+        <Typography
+          variant="h6"
+          gutterBottom
+          sx={{ p: "24px 24px 16px 24px", m: "0px" }}
+        >
           Nueva tarea
         </Typography>
-        <Box sx={{ p: "10px" }}>
-          <Box sx={{ padding: "0 24px 20px 24px" }}>
+        <Box sx={{ padding: "0 24px 20px 24px" }}>
+          <Box sx={{ padding: "10px" }}>
             <TextField
               fullWidth
               label="Título"
               name="title"
               value={newTask.title}
               onChange={handleInputChange}
-              margin="normal"
               inputProps={{ maxLength: 40 }}
               required
               color={getFieldColor("title")}
               error={errors.title}
               helperText={errors.title ? "El título es requerido" : ""}
               variant="standard"
+              sx={{ marginBottom: "16px" }}
             />
             <TextField
               fullWidth
@@ -98,7 +102,6 @@ const TaskModal: React.FC<TaskModalProps> = ({
               name="description"
               value={newTask.description}
               onChange={handleInputChange}
-              margin="normal"
               inputProps={{ maxLength: 100 }}
               color={getFieldColor("description")}
               error={errors.description}
@@ -106,6 +109,7 @@ const TaskModal: React.FC<TaskModalProps> = ({
                 errors.description ? "La descripción es requerida" : ""
               }
               variant="standard"
+              sx={{ marginBottom: "16px" }}
             />
             <TextField
               fullWidth
@@ -114,12 +118,12 @@ const TaskModal: React.FC<TaskModalProps> = ({
               name="category_id"
               value={newTask.category_id}
               onChange={handleInputChange}
-              margin="normal"
               required
               color={getFieldColor("category_id")}
               error={errors.category_id}
               helperText={errors.category_id ? "La categoría es requerida" : ""}
               variant="standard"
+              sx={{ marginBottom: "16px" }}
             >
               {categories.map((category) => (
                 <MenuItem key={category.id} value={category.id}>
