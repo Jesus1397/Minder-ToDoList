@@ -20,6 +20,17 @@ const TaskModalForm: React.FC<TaskModalFormProps> = ({
   categories,
   errors,
 }) => {
+  const getTitleErrorText = () =>
+    errors.title
+      ? "El título es obligatorio y no puede exceder 40 caracteres"
+      : "";
+
+  const getDescriptionErrorText = () =>
+    errors.description ? "La descripción no puede exceder 100 caracteres" : "";
+
+  const getCategoryErrorText = () =>
+    errors.category_id ? "La categoría es obligatoria" : "";
+
   return (
     <Box sx={{ padding: "0 24px 20px 24px" }}>
       <Box sx={{ padding: "10px" }}>
@@ -32,11 +43,7 @@ const TaskModalForm: React.FC<TaskModalFormProps> = ({
           inputProps={{ maxLength: 40 }}
           required
           error={errors.title}
-          helperText={
-            errors.title
-              ? "El título es obligatorio y no puede exceder 40 caracteres"
-              : ""
-          }
+          helperText={getTitleErrorText()}
           variant="standard"
           sx={{ marginBottom: "16px" }}
         />
@@ -44,15 +51,11 @@ const TaskModalForm: React.FC<TaskModalFormProps> = ({
           fullWidth
           label="Descripción"
           name="description"
-          value={newTask.description}
+          value={newTask.description || ""}
           onChange={handleInputChange}
           inputProps={{ maxLength: 100 }}
           error={errors.description}
-          helperText={
-            errors.description
-              ? "La descripción no puede exceder 100 caracteres"
-              : ""
-          }
+          helperText={getDescriptionErrorText()}
           variant="standard"
           sx={{ marginBottom: "16px" }}
         />
@@ -65,7 +68,7 @@ const TaskModalForm: React.FC<TaskModalFormProps> = ({
           onChange={handleInputChange}
           required
           error={errors.category_id}
-          helperText={errors.category_id ? "La categoría es obligatoria" : ""}
+          helperText={getCategoryErrorText()}
           variant="standard"
           sx={{ marginBottom: "16px" }}
         >

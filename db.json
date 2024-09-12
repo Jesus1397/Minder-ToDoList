@@ -42,7 +42,7 @@
       "title": "Comprar 2kg de tomates",
       "description": "Bien maduros",
       "category_id": "46265b1f-ffba-5cd2-9d55-36ec7e3ac095",
-      "completed": true
+      "completed": false
     },
     {
       "id": "c77b2e4c-0992-55b4-ac93-a6dad915a754",

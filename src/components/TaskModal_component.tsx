@@ -37,10 +37,6 @@ const TaskModal: React.FC<TaskModalProps> = ({
     }
   };
 
-  const handleModalClose = () => {
-    handleClose();
-  };
-
   const validateInputs = () => {
     const hasErrors = {
       title: !newTask.title.trim() || newTask.title.length > 40,
@@ -53,15 +49,18 @@ const TaskModal: React.FC<TaskModalProps> = ({
     return !Object.values(hasErrors).includes(true);
   };
 
+  const actionButtonLabel = isEditing ? "Guardar cambios" : "Crear";
+  const modalTitle = isEditing ? "Editando tarea" : "Nueva tarea";
+
   return (
-    <Modal open={open} onClose={handleModalClose}>
-      <Box sx={{ ...modalStyle }}>
+    <Modal open={open} onClose={handleClose}>
+      <Box sx={modalStyle}>
         <Typography
           variant="h6"
           gutterBottom
           sx={{ p: "24px 24px 16px 24px", m: "0px" }}
         >
-          {isEditing ? "Editando tarea" : "Nueva tarea"}
+          {modalTitle}
         </Typography>
         <TaskModalForm
           newTask={newTask}
@@ -72,7 +71,7 @@ const TaskModal: React.FC<TaskModalProps> = ({
         <Box
           sx={{ display: "flex", justifyContent: "flex-end", padding: "8px" }}
         >
-          <Button variant="outlined" onClick={handleModalClose}>
+          <Button variant="outlined" onClick={handleClose}>
             Cancelar
           </Button>
           <Button
@@ -81,7 +80,7 @@ const TaskModal: React.FC<TaskModalProps> = ({
             onClick={handleCreate}
             sx={{ ml: 2 }}
           >
-            {isEditing ? "Guardar cambios" : "Crear"}
+            {actionButtonLabel}
           </Button>
         </Box>
       </Box>

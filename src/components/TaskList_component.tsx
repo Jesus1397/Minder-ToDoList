@@ -24,8 +24,16 @@ const TaskList: React.FC<TaskListProps> = ({
 
   const getCategoryColor = (categoryId: string) => {
     const category = categories.find((cat) => cat.id === categoryId);
-    return category?.color || "#ffffff";
+    if (!category) {
+      console.warn(`Category with id ${categoryId} not found`);
+      return "#ffffff";
+    }
+    return category.color || "#ffffff";
   };
+
+  const emptyMessage = completed
+    ? "No has terminado ninguna tarea aún, ¡Vos podes!🎉"
+    : "¡Bien hecho! No tienes tareas pendientes. ✅";
 
   return (
     <>
@@ -34,11 +42,7 @@ const TaskList: React.FC<TaskListProps> = ({
       </Typography>
       {filteredTasks.length === 0 ? (
         <Box sx={{ textAlign: "center", padding: "16px", color: "#888" }}>
-          <Typography variant="h6">
-            {completed
-              ? "No has terminado ninguna tarea aún, ¡Vos podes!🎉"
-              : "¡Bien hecho! No tienes tareas pendientes. ✅"}
-          </Typography>
+          <Typography variant="h6">{emptyMessage}</Typography>
         </Box>
       ) : (
         <List sx={{ paddingTop: "0px", paddingBottom: "16px" }}>

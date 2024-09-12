@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { CATEGORIES_API } from "../constants/api_constants";
+import { CATEGORIES_API, TASK_API_BASE } from "../constants/api_constants";
 import { Task } from "../interfaces/Task_interfaces";
 import { Category } from "../interfaces/Category_interface";
 import { fetchTasks, createTask } from "./TaskFunctions";
@@ -31,23 +31,22 @@ export const useTasks = () => {
     fetchData();
   }, []);
 
-  const handleToggleTask = async (id: string, completed: boolean) => {
+  const handleToggleTask = async (id: string) => {
     const taskToUpdate = tasks.find((task) => task.id === id);
     if (taskToUpdate) {
-      await axios.put(`http://localhost:3000/tasks/${id}`, {
+      const updatedTask = {
         ...taskToUpdate,
-        completed: !completed,
-      });
-      setTasks(
-        tasks.map((task) =>
-          task.id === id ? { ...task, completed: !completed } : task
-        )
-      );
+        completed: !taskToUpdate.completed,
+      };
+      await axios.put(`${TASK_API_BASE}/${id}`, updatedTask);
+      setTasks(tasks.map((task) => (task.id === id ? updatedTask : task)));
     }
   };
 
+  const isValidTask = () => newTask.title && newTask.category_id;
+
   const handleCreateTask = async () => {
-    if (newTask.title && newTask.category_id) {
+    if (isValidTask()) {
       const createdTask = await createTask({
         ...newTask,
         description: newTask.description?.trim() ? newTask.description : null,
@@ -67,10 +66,7 @@ export const useTasks = () => {
 
   const handleUpdateTask = async () => {
     if (taskToEdit) {
-      await axios.put(
-        `http://localhost:3000/tasks/${taskToEdit.id}`,
-        taskToEdit
-      );
+      await axios.put(`${TASK_API_BASE}/${taskToEdit.id}`, taskToEdit);
       setTasks(
         tasks.map((task) => (task.id === taskToEdit.id ? taskToEdit : task))
       );
@@ -80,7 +76,7 @@ export const useTasks = () => {
   };
 
   const handleDeleteTask = async (id: string) => {
-    await axios.delete(`http://localhost:3000/tasks/${id}`);
+    await axios.delete(`${TASK_API_BASE}/${id}`);
     setTasks(tasks.filter((task) => task.id !== id));
   };
 
@@ -88,9 +84,14 @@ export const useTasks = () => {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
-    taskToEdit
-      ? setTaskToEdit({ ...taskToEdit!, [name]: value })
-      : setNewTask({ ...newTask, [name]: value });
+
+    if (taskToEdit) {
+      setTaskToEdit((prev: Task | null) =>
+        prev ? { ...prev, [name]: value } : prev
+      );
+    } else {
+      setNewTask((prev: Omit<Task, "id">) => ({ ...prev, [name]: value }));
+    }
   };
 
   const handleCloseModal = () => {
